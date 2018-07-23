@@ -1,0 +1,65 @@
+swagger: "2.0"
+info:
+  description: "API Specification for BikeHack"
+  version: "1.0.0"
+  title: "Swagger BikeHack"
+basePath: "/"
+tags:
+paths:
+  /bikes/{bikeId}/status:
+    post:
+      summary: "Post status of bike to backend"
+      parameters:
+      - in: "body"
+        name: "status"
+        description: "Bike status"
+        required: true
+        schema:
+          $ref: "#/definitions/BikeStatus"
+    get:
+      summary: "Get status for a bike id"
+      responses:
+        200:
+          description: "Bike status"
+          schema: "#/definitions/BikeStatus"
+
+  /bikes/{bikeId}/checkout:
+    post:
+      summary: "Check out a bike"
+      parameters:
+      - in: "body"
+        name: "badgeInfo"
+        description: "User info"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Bike can be unlocked"
+
+/bikes/{bikeId}/checkin:
+  post:
+    summary: "Check in a bike"
+    description: "Tells the backend that the bike has been locked."
+
+/bikes:
+  get:
+    summary: "Get bike ids."
+    parameters:
+      - name: "state"
+        in: "query"
+        type: "string"
+        enum:
+          "locked"
+          "unlocked"
+
+definitions:
+  BikeStatus:
+    type: "object"
+    properties:
+      latitude:
+        type: "float"
+      longitude:
+        type: "float"
+      batteryLife:
+        type: "integer"
+        format: "int32"
