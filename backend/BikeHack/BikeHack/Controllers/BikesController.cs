@@ -14,13 +14,15 @@ namespace BikeHack.Controllers
         [HttpPost("{bikeId}/status")]
         public IActionResult PostStatus([FromRoute] string bikeId)
         {
+            // TODO update bike status
             return Ok();
         }
 
         [HttpGet("{bikeId}/status")]
         public IActionResult GetStatus([FromRoute] string bikeId)
         {
-            return Ok();
+            // TODO get actual bike status
+            return Ok(new BikeStatus { BatteryPercentage = 99, Latitude = 4, Longitude = 5 });
         }
 
         [HttpPost("{bikeId}/checkout")]
