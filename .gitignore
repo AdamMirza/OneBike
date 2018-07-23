@@ -1,0 +1,9 @@
+# binaries
+*.dll
+*.bin
+*.exe
+bin/
+obj/
+
+# other files
+.DS_STORE
