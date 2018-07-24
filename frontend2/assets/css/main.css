@@ -2095,6 +2095,11 @@ input, select, textarea {
 				width: 100%;
 			}
 
+        .image.satya {
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
 	a.image {
 		overflow: hidden;
 	}
