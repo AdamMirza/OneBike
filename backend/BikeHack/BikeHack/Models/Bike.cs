@@ -8,7 +8,7 @@ namespace BikeHack.Models
 {
     public enum BikeState
     {
-        Locked, Unlocked
+        Active, Idle
     }
 
     public class Bike : TableEntity
@@ -71,5 +71,13 @@ namespace BikeHack.Models
                 State = Enum.Parse<BikeState>(value);
             }
         }
+
+        public Guid? CurrentTripId { get; set; }
+
+        public string TripHistory { get; set; }
+
+        public double MilesTraveled { get; set; }
+
+        public DateTimeOffset DeploymentTime { get; set; }
     }
 }

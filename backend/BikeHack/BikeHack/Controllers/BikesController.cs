@@ -23,6 +23,7 @@ namespace BikeHack.Controllers
         [HttpPost("{bikeId}/status")]
         public async Task<IActionResult> PostStatus([FromRoute] Guid bikeId, [FromBody] BikeStatus status)
         {
+            //TODO add to trip distance if bike is on a trip
             await _bikeStorage.UpdateBikeStatusAsync(bikeId, status);
             return Ok();
         }
@@ -34,14 +35,14 @@ namespace BikeHack.Controllers
             return Ok(bike.GetStatus());
         }
 
-        [HttpPost("{bikeId}/checkout")]
-        public IActionResult CheckOut([FromRoute] Guid bikeId)
+        [HttpPost("{bikeId}/startTrip")]
+        public IActionResult StartTrip([FromRoute] Guid bikeId)
         {
             return Ok();
         }
 
-        [HttpPost("{bikeId}/checkin")]
-        public IActionResult CheckIn([FromRoute] Guid bikeId)
+        [HttpPost("{bikeId}/endTrip")]
+        public IActionResult EndTrip([FromRoute] Guid bikeId)
         {
             return Ok();
         }
