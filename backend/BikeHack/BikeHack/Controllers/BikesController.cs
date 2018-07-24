@@ -5,34 +5,43 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using BikeHack.Models;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Table;
 
 namespace BikeHack.Controllers
 {
     [Route("bikes")]
     public class BikesController : Controller
     {
-        [HttpPost("{bikeId}/status")]
-        public IActionResult PostStatus([FromRoute] string bikeId)
+        private BikeStorage _bikeStorage;
+
+        public BikesController(CloudStorageAccount storageAccount)
         {
-            // TODO update bike status
+            _bikeStorage = new BikeStorage(storageAccount);
+        }
+
+        [HttpPost("{bikeId}/status")]
+        public async Task<IActionResult> PostStatus([FromRoute] Guid bikeId, [FromBody] BikeStatus status)
+        {
+            await _bikeStorage.UpdateBikeStatusAsync(bikeId, status);
             return Ok();
         }
 
         [HttpGet("{bikeId}/status")]
-        public IActionResult GetStatus([FromRoute] string bikeId)
+        public async Task<IActionResult> GetStatus([FromRoute] Guid bikeId)
         {
-            // TODO get actual bike status
-            return Ok(new BikeStatus { BatteryPercentage = 99, Latitude = 4, Longitude = 5 });
+            var bike = await _bikeStorage.RetrieveBikeAsync(bikeId);
+            return Ok(bike.GetStatus());
         }
 
         [HttpPost("{bikeId}/checkout")]
-        public IActionResult CheckOut([FromRoute] string bikeId)
+        public IActionResult CheckOut([FromRoute] Guid bikeId)
         {
             return Ok();
         }
 
         [HttpPost("{bikeId}/checkin")]
-        public IActionResult CheckIn([FromRoute] string bikeId)
+        public IActionResult CheckIn([FromRoute] Guid bikeId)
         {
             return Ok();
         }

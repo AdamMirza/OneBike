@@ -4,9 +4,8 @@ info:
   version: "1.0.0"
   title: "Swagger BikeHack"
 basePath: "/"
-tags:
-paths:
-  /bikes/{bikeId}/status:
+apis:
+  -path: /bikes/{bikeId}/status:
     post:
       summary: "Post status of bike to backend"
       parameters:
@@ -23,7 +22,7 @@ paths:
           description: "Bike status"
           schema: "#/definitions/BikeStatus"
 
-  /bikes/{bikeId}/checkout:
+  -path: /bikes/{bikeId}/checkout:
     post:
       summary: "Check out a bike"
       parameters:
@@ -36,21 +35,27 @@ paths:
         200:
           description: "Bike can be unlocked"
 
-/bikes/{bikeId}/checkin:
-  post:
-    summary: "Check in a bike"
-    description: "Tells the backend that the bike has been locked."
+  -path: /bikes/{bikeId}/checkin:
+    post:
+      summary: "Check in a bike"
+      description: "Tells the backend that the bike has been locked."
 
-/bikes:
-  get:
-    summary: "Get bike ids."
-    parameters:
-      - name: "state"
-        in: "query"
-        type: "string"
-        enum:
-          "locked"
-          "unlocked"
+  -path: /bikes:
+    get:
+      summary: "Get bike ids."
+      parameters:
+        - name: "state"
+          in: "query"
+          type: "string"
+          enum:
+            "locked"
+            "unlocked"
+      responses:
+        200:
+          description: "Bike ids"
+          type: "array"
+          items:
+            type: "string"
 
 definitions:
   BikeStatus:

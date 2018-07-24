@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Auth;
 
 namespace BikeHack
 {
@@ -22,6 +24,11 @@ namespace BikeHack
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            var accountName = Configuration["storage-account-name"];
+            var accountKey = Configuration["storage-account-key"];
+            var credentials = new StorageCredentials(accountName, accountKey);
+            var storageAccount = new CloudStorageAccount(credentials, true);
+            services.AddSingleton(storageAccount);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
