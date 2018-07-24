@@ -96,3 +96,5 @@ _ReSharper*/
 _TeamCity*
 
 .DS_STORE
+.vs/
+
