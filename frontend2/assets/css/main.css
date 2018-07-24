@@ -1797,7 +1797,6 @@ input, select, textarea {
 	}
 
 	header.major > :last-child {
-		border-bottom: solid 3px #f56a6a;
 		display: inline-block;
 		margin: 0 0 2em 0;
 		padding: 0 0.75em 0.5em 0;
@@ -2989,7 +2988,7 @@ input, select, textarea {
 	}
 
 		#main > .inner {
-			background-color:red;
+			background-color:#00A4EF;
 			padding: 0 6em 0.1em 6em ;
 			margin: 0 auto;
 			max-width: 110em;
@@ -3079,13 +3078,6 @@ input, select, textarea {
 		#search form input[type="text"] {
 			padding-right: 2.75em;
 		}
-
-
-	#top {
-
-		width: 100%;
-		background-color:red;
-	}
 
 	#sidebar {
 		-moz-flex-grow: 0;
@@ -3305,7 +3297,6 @@ input, select, textarea {
 		display: -webkit-flex;
 		display: -ms-flex;
 		display: flex;
-		border-bottom: solid 5px #f56a6a;
 		padding: 0em 0 1em 0;
 		position: relative;
 	}
@@ -3329,6 +3320,12 @@ input, select, textarea {
 			text-align: right;
 		}
 
+		img.profile {
+			float:right;
+			margin-right:5px;
+			margin-top:5px;
+		}
+
 		@media screen and (max-width: 736px) {
 
 				#header .logo {
@@ -3344,6 +3341,11 @@ input, select, textarea {
 					top: 0;
 				}
 
+		}
+
+		div.title {
+			font-size:18pt;
+			color:white;
 		}
 
 /* Banner */
