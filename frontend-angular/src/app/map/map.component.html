@@ -1,0 +1,9 @@
+<div class="container-fluid" fxLayout="column">
+  <div class="row">
+    <div class="map" fxFlex="1 1 100%" #map>
+      <agm-map [style.height.px]="map.offsetHeight" [latitude]="latitude" [longitude]="longitude" (mapClick)="onChoseLocation($event)">
+        <agm-marker [latitude]="loc_lat" [longitude]="loc_lng" *ngIf="locationChosen"></agm-marker>
+      </agm-map>
+    </div>
+  </div>
+</div>
