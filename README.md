@@ -21,7 +21,7 @@ There are multiple folders for frontend. The `frontendFIN` folder is the complet
 
 `Frontend-angular` is the onboarding and login process (login is mocked up). This folder has all source code in `src` to make the website happen. The *register* process occurs in `register`, *login* in `home`, and the *app* will be hosted in `app-home`.
 
-### Deploying
+### Running
 
 After getting your machine set up, you will be able to deploy the frontend server using the following commands.
 
@@ -31,3 +31,8 @@ First cd into the `frontend-angular` folder, then run the serve command:
 ng serve
 ```
 The server will run on localhost port 4200.
+
+### Emails that work
+Only emails with `@microsoft.com` endings will work on the angular frontend login. The two emails that are hardcoded to be users are:
+* hello@microsoft.com
+* satyan@microsoft.com
