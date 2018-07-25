@@ -18,25 +18,18 @@ namespace BikeHack.Models
             PartitionKey = Guid.Empty.ToString();
         }
 
-        public void UpdateStatus(BikeStatus status)
-        {
-            Latitude = status.Latitude;
-            Longitude = status.Longitude;
-            BatteryPercentage = status.BatteryPercentage;
-        }
-
         public double Latitude { get; set; }
 
         public double Longitude { get; set; }
 
         public int BatteryPercentage { get; set; }
 
-        public BikeState State { get; set; }
+        public BikeState? State { get; set; }
 
         [IgnoreProperty]
-        public Guid BikeId
+        public Guid? BikeId
         {
-            get => Guid.Parse(RowKey);
+            get => RowKey != null ? new Guid?(Guid.Parse(RowKey)) : null;
             set
             {
                 RowKey = value.ToString();
@@ -52,7 +45,7 @@ namespace BikeHack.Models
 
             set
             {
-                State = Enum.Parse<BikeState>(value);
+                State = Enum.Parse<BikeState>(value, true);
             }
         }
 

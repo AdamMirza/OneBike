@@ -13,7 +13,7 @@ namespace BikeHack.Models
             PartitionKey = Guid.Empty.ToString();
         }
 
-        public DateTimeOffset StartTime { get; set; }
+        public DateTimeOffset? StartTime { get; set; }
 
         public DateTimeOffset? EndTime { get; set; }
 
@@ -42,10 +42,10 @@ namespace BikeHack.Models
 
         public double? EndLatitude { get; set; }
 
-        public Guid? BikeId { get; set; }
+        public string BikeId { get; set; }
 
-        public Guid? UserId { get; set; }
+        public string UserId { get; set; }
 
-        public double TripMiles { get; set; }
+        public double? TripMiles { get; set; }
     }
 }

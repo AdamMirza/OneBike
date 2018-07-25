@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using BikeHack.Models;
-using System.Net;
 
 namespace BikeHack.Controllers
 {
@@ -40,12 +39,12 @@ namespace BikeHack.Controllers
         }
 
         [HttpPatch("{bikeId}")]
-        public async Task<IActionResult> UpdateBikeStatus([FromRoute] Guid bikeId, [FromBody] double latitude, [FromBody] double longitude, [FromBody] int batteryPercentage)
+        public async Task<IActionResult> UpdateBikeStatus([FromRoute] Guid bikeId, [FromBody] Bike bikePatch)
         {
             var bike = await _bikeStorage.RetrieveBikeAsync(bikeId);
-            bike.Latitude = latitude;
-            bike.Longitude = longitude;
-            bike.BatteryPercentage = batteryPercentage;
+            bike.Latitude = bikePatch.Latitude;
+            bike.Longitude = bikePatch.Longitude;
+            bike.BatteryPercentage = bikePatch.BatteryPercentage;
             if (bike.State ==  BikeState.Active && bike.CurrentTripId.HasValue)
             {
                 var trip = await _tripStorage.RetrieveTripAsync(bike.CurrentTripId.Value);
