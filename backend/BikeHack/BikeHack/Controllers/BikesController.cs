@@ -42,8 +42,7 @@ namespace BikeHack.Controllers
         public async Task<IActionResult> UpdateBikeStatus([FromRoute] Guid bikeId, [FromBody] Bike bikePatch)
         {
             var bike = await _bikeStorage.RetrieveBikeAsync(bikeId);
-            bike.Latitude = bikePatch.Latitude;
-            bike.Longitude = bikePatch.Longitude;
+            bike.UpdateLocation(bikePatch.Latitude, bikePatch.Longitude);
             bike.BatteryPercentage = bikePatch.BatteryPercentage;
             if (bike.State ==  BikeState.Active && bike.CurrentTripId.HasValue)
             {

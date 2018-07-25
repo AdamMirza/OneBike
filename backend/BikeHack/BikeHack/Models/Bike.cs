@@ -36,6 +36,13 @@ namespace BikeHack.Models
             }
         }
 
+        public void UpdateLocation(double latitude, double longitude)
+        {
+            MilesTraveled += Utility.MilesBetweenCoordinates(Latitude, Longitude, latitude, longitude);
+            Latitude = latitude;
+            Longitude = longitude;
+        }
+
         public string BikeState
         {
             get

@@ -42,6 +42,7 @@ namespace BikeHack.Controllers
             }
             bike.CurrentTripId = trip.TripId;
             bike.State = BikeState.Active;
+            bike.UpdateLocation(trip.StartLatitude.Value, trip.StartLongitude.Value);
             await _tripStorage.InsertTripAsync(trip);
             await _bikeStorage.UpdateBikeAsync(bike);
             //TODO make sure user is registered (stretch)
@@ -63,8 +64,9 @@ namespace BikeHack.Controllers
             trip.EndTime = DateTimeOffset.UtcNow;
             trip.UpdateLocation(endLatitude, endLongitude);
             var bike = await _bikeStorage.RetrieveBikeAsync(Guid.Parse(trip.BikeId));
-            bike.MilesTraveled += trip.TripMiles.Value;
-            //TODO (stretch) add trip to bike history
+            bike.UpdateLocation(endLatitude, endLongitude);
+            bike.TripHistory += tripId.ToString() + ";";
+            await _bikeStorage.UpdateBikeAsync(bike);
             return Ok();
         }
     }
