@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using BikeHack.Models;
+using System.Net;
 
 namespace BikeHack.Controllers
 {
@@ -20,10 +21,11 @@ namespace BikeHack.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateBike([FromBody] BikeStatus status)
+        public async Task<IActionResult> CreateBike([FromBody] Bike bike)
         {
             Utility.LogMessage("CreateBike request.");
-            var bike = new Bike(status);
+            bike.BikeId = Guid.NewGuid();
+            bike.DeploymentTime = DateTimeOffset.UtcNow;
             await _bikeStorage.InsertBikeAsync(bike);
             return CreatedAtAction(nameof(GetStatus), new { bikeId = bike.BikeId }, bike);
         }
@@ -38,11 +40,13 @@ namespace BikeHack.Controllers
         }
 
         [HttpPatch("{bikeId}")]
-        public async Task<IActionResult> UpdateBikeStatus([FromRoute] Guid bikeId, [FromBody] BikeStatus status)
+        public async Task<IActionResult> UpdateBikeStatus([FromRoute] Guid bikeId, [FromBody] double latitude, [FromBody] double longitude, [FromBody] int batteryPercentage)
         {
             var bike = await _bikeStorage.RetrieveBikeAsync(bikeId);
-            bike.UpdateStatus(status);
-            if (bike.State ==  BikeState.Active)
+            bike.Latitude = latitude;
+            bike.Longitude = longitude;
+            bike.BatteryPercentage = batteryPercentage;
+            if (bike.State ==  BikeState.Active && bike.CurrentTripId.HasValue)
             {
                 var trip = await _tripStorage.RetrieveTripAsync(bike.CurrentTripId.Value);
                 trip.UpdateLocation(bike.Latitude, bike.Longitude);

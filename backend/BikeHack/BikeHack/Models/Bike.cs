@@ -18,22 +18,6 @@ namespace BikeHack.Models
             PartitionKey = Guid.Empty.ToString();
         }
 
-        public Bike(BikeStatus status) : this()
-        {
-            UpdateStatus(status);
-            BikeId = Guid.NewGuid();
-        }
-
-        public BikeStatus GetStatus()
-        {
-            return new BikeStatus
-            {
-                Latitude = Latitude,
-                Longitude = Longitude,
-                BatteryPercentage = BatteryPercentage
-            };
-        }
-
         public void UpdateStatus(BikeStatus status)
         {
             Latitude = status.Latitude;
@@ -78,6 +62,6 @@ namespace BikeHack.Models
 
         public double MilesTraveled { get; set; }
 
-        public DateTimeOffset DeploymentTime { get; set; }
+        public DateTimeOffset? DeploymentTime { get; set; }
     }
 }
