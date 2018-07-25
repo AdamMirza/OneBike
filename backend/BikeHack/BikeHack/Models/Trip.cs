@@ -10,6 +10,7 @@ namespace BikeHack.Models
     {
         public Trip()
         {
+            PartitionKey = Guid.Empty.ToString();
         }
 
         DateTimeOffset StartTime { get; set; }
@@ -17,9 +18,9 @@ namespace BikeHack.Models
         DateTimeOffset? EndTime { get; set; }
 
         [IgnoreProperty]
-        public Guid TripId
+        public Guid? TripId
         {
-            get => Guid.Parse(RowKey);
+            get => RowKey != null ? new Guid?(Guid.Parse(RowKey)) : null;
             set
             {
                 RowKey = value.ToString();

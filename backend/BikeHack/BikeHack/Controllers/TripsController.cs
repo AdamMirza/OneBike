@@ -21,5 +21,13 @@ namespace BikeHack.Controllers
             _tripStorage = tripStorage;
             Utility.LogMessage("Started trips controller successfully.");
         }
+
+        [HttpPost]
+        public async Task<IActionResult> StartTrip([FromBody] Trip trip)
+        {
+            trip.TripId = Guid.NewGuid();
+            await _tripStorage.InsertTripAsync(trip);
+            return Ok();
+        }
     }
 }

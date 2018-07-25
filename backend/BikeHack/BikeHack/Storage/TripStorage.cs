@@ -19,17 +19,21 @@ namespace BikeHack
 
         public async Task InsertTripAsync(Trip trip)
         {
-            //TODO insert trip into table
+            var operation = TableOperation.Insert(trip);
+            await _table.ExecuteAsync(operation);
         }
 
         public async Task<Trip> RetrieveTripAsync(Guid tripId)
         {
-            return null;
+            var retrieveOperation = TableOperation.Retrieve<Trip>(Guid.Empty.ToString(), tripId.ToString());
+            var result = await _table.ExecuteAsync(retrieveOperation);
+            return result.Result as Trip;
         }
 
         public async Task UpdateTripAsync(Trip trip)
         {
-
+            var operation = TableOperation.Replace(trip);
+            await _table.ExecuteAsync(operation);
         }
     }
 }
