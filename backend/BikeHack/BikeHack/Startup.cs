@@ -38,7 +38,10 @@ namespace BikeHack
             {
                 storageAccount = CloudStorageAccount.Parse(connectionString);
             }
-            services.AddSingleton(storageAccount);
+            var bikeStorage = new BikeStorage(storageAccount);
+            var tripStorage = new TripStorage(storageAccount);
+            services.AddSingleton(bikeStorage);
+            services.AddSingleton(tripStorage);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

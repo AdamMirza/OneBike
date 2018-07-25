@@ -18,10 +18,10 @@ namespace BikeHack.Models
             PartitionKey = Guid.Empty.ToString();
         }
 
-        public Bike(BikeStatus status, Guid bikeId) : this()
+        public Bike(BikeStatus status) : this()
         {
             UpdateStatus(status);
-            BikeId = bikeId;
+            BikeId = Guid.NewGuid();
         }
 
         public BikeStatus GetStatus()

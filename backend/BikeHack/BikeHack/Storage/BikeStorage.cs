@@ -20,19 +20,15 @@ namespace BikeHack
             _table = client.GetTableReference(TableName);
         }
 
-        public async Task<Bike> CreateBikeAsync(BikeStatus status)
+        public async Task InsertBikeAsync(Bike bike)
         {
-            var bikeId = Guid.NewGuid();
-            var bike = new Bike(status, bikeId);
             var operation = TableOperation.Insert(bike);
             await _table.ExecuteAsync(operation);
-            return bike;
         }
 
-        public async Task UpdateBikeStatusAsync(Guid bikeId, BikeStatus status)
+        public async Task UpdateBikeAsync(Bike bike)
         {
-            var bike = await RetrieveBikeAsync(bikeId) ?? new Bike(status, bikeId);
-            var operation = TableOperation.InsertOrReplace(bike);
+            var operation = TableOperation.Replace(bike);
             await _table.ExecuteAsync(operation);
         }
 

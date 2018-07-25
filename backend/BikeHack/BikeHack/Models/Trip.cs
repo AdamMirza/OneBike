@@ -26,6 +26,11 @@ namespace BikeHack.Models
             }
         }
 
+        public void UpdateLocation(double latitude, double longitude)
+        {
+
+        }
+
         public double StartLongitude { get; set; }
 
         public double StartLatitude { get; set; }

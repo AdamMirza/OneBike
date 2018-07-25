@@ -17,9 +17,21 @@ namespace BikeHack
             _table = client.GetTableReference(TableName);
         }
 
-        public async Task CreateTripAsync(Trip trip)
+        public async Task InsertTripAsync(Trip trip)
         {
             //TODO insert trip into table
         }
+
+        public async Task<Trip> RetrieveTripAsync(Guid tripId)
+        {
+            return null;
+        }
+
+        public async Task UpdateTripAsync(Trip trip)
+        {
+
+        }
+
+        public async Task
     }
 }
