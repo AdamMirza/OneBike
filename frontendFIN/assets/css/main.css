@@ -2137,9 +2137,15 @@ input, select, textarea {
 		padding-left: 1em;
 	}
 
-		ul li {
-			padding-left: 0.5em;
-		}
+        ul li {
+            padding-left: 0.5em;
+            font-size: 18px;
+            color: black;
+            text-decoration: none;
+            top: 30%;
+            line-height: 250%;
+            list-style-type: none
+        }
 
 		ul.alt {
 			list-style: none;
@@ -3111,9 +3117,14 @@ input, select, textarea {
 			padding: 2.2222222222em 2.2222222222em 2.4444444444em 2.2222222222em ;
 			position: relative;
 			width: 26em;
+            top: 10%;
 		}
 
-			#sidebar > .inner > * {
+        #sidebar > .inner.bike{
+            text-align: center;
+        }
+
+            #sidebar > .inner > * {
 				border-bottom: solid 2px rgba(210, 215, 217, 0.75);
 				margin: 0 0 3.5em 0;
 				padding: 0 0 3.5em 0;
@@ -3301,16 +3312,19 @@ input, select, textarea {
 			color:white;
 			font-size:18px;
 			margin:5px;
+            padding-top: 12px;
 		}
 
 	.toolbar {
 		text-align:right;
+        padding-top: 18px;
 	}
 
 	.toolbar img {
 		width:18px;
 		height:18px;
 		margin: 5px;
+        border-radius: 50%
 	}
 
 	#header {
@@ -3470,13 +3484,18 @@ input, select, textarea {
 
 /* Footer */
 
+
 	#footer .copyright {
 		color: #9fa3a6;
 		font-size: 0.9em;
+        position: absolute;
+        bottom: 0;
 	}
 
 		#footer .copyright a {
 			color: inherit;
+            position: absolute;
+            bottom: 0;
 		}
 
 /* Menu */
@@ -3503,6 +3522,7 @@ input, select, textarea {
 			display: block;
 			font-size: 0.9em;
 			padding: 0.625em 0;
+            text-decoration: none;
 		}
 
 			#menu ul a:hover, #menu ul span:hover {
