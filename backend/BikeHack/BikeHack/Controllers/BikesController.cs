@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using BikeHack.Models;
+using Microsoft.AspNetCore.Cors;
 
 namespace BikeHack.Controllers
 {
@@ -12,7 +13,7 @@ namespace BikeHack.Controllers
         private BikeStorage _bikeStorage;
         private TripStorage _tripStorage;
 
-        public BikesController(BikeStorage bikeStorage, TripStorage tripStorage)
+        public BikesController(BikeStorage bikeStorage, TripStorage tripStorage, UserStorage userStorage)
         {
             _bikeStorage = bikeStorage;
             _tripStorage = tripStorage;

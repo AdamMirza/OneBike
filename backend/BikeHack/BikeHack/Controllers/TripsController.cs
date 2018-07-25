@@ -9,43 +9,50 @@ namespace BikeHack.Controllers
     [Route("trips")]
     public class TripsController : Controller
     {
-        private BikeStorage _bikeStorage;
-        private TripStorage _tripStorage;
+        private readonly BikeStorage _bikeStorage;
+        private readonly TripStorage _tripStorage;
+        private readonly UserStorage _userStorage;
 
-        public TripsController(BikeStorage bikeStorage, TripStorage tripStorage)
+        public TripsController(BikeStorage bikeStorage, TripStorage tripStorage, UserStorage userStorage)
         {
             _bikeStorage = bikeStorage;
             _tripStorage = tripStorage;
+            _userStorage = userStorage;
             Utility.LogMessage("Started trips controller successfully.");
         }
 
         [HttpPost]
         public async Task<IActionResult> StartTrip([FromBody] Trip trip)
         {
-            trip.TripId = Guid.NewGuid();
-            trip.TripMiles = 0;
-            trip.StartTime = DateTimeOffset.UtcNow;
             if (trip.BikeId == null || trip.StartLatitude == null || trip.StartLongitude == null)
             {
                 return BadRequest();
             }
-            trip.EndLatitude = trip.StartLatitude;
-            trip.EndLongitude = trip.StartLongitude;
             var bike = await _bikeStorage.RetrieveBikeAsync(Guid.Parse(trip.BikeId));
             if (bike == null)
             {
-                return NotFound("Could not find the bike");
+                return NotFound(new { message = "Could not find a bike for the given id" });
             }
             if (bike.State == BikeState.Active)
             {
                 return StatusCode((int)HttpStatusCode.PreconditionFailed, new { message = "The associated bike is already on a trip." });
             }
+            var user = await _userStorage.RetrieveUserAsync(trip.UserId);
+            if (user == null)
+            {
+                return NotFound(new { message = "Could not find a user for the given id" });
+            }
+            trip.EndLatitude = trip.StartLatitude;
+            trip.EndLongitude = trip.StartLongitude;
+            trip.TripId = Guid.NewGuid();
+            trip.TripMiles = 0;
+            trip.StartTime = DateTimeOffset.UtcNow;
+
             bike.CurrentTripId = trip.TripId;
             bike.State = BikeState.Active;
             bike.UpdateLocation(trip.StartLatitude.Value, trip.StartLongitude.Value);
             await _tripStorage.InsertTripAsync(trip);
             await _bikeStorage.UpdateBikeAsync(bike);
-            //TODO make sure user is registered (stretch)
             return Ok(trip.TripId);
         }
 
@@ -67,6 +74,9 @@ namespace BikeHack.Controllers
             bike.UpdateLocation(endLatitude, endLongitude);
             bike.TripHistory += tripId.ToString() + ";";
             await _bikeStorage.UpdateBikeAsync(bike);
+            var user = await _userStorage.RetrieveUserAsync(trip.UserId);
+            user.TripHistory += tripId.ToString() + ";";
+            await _userStorage.UpdateUserAsync(user);
             return Ok();
         }
     }

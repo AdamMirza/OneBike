@@ -40,8 +40,21 @@ namespace BikeHack
             }
             var bikeStorage = new BikeStorage(storageAccount);
             var tripStorage = new TripStorage(storageAccount);
+            var userStorage = new UserStorage(storageAccount);
             services.AddSingleton(bikeStorage);
             services.AddSingleton(tripStorage);
+            services.AddSingleton(userStorage);
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAllOrigins",
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials();
+                    });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,7 +71,7 @@ namespace BikeHack
             }
 
             app.UseStaticFiles();
-
+            app.UseCors("AllowAllOrigins");
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
