@@ -18,6 +18,7 @@ namespace BikeHack.Controllers
         public BikesController(CloudStorageAccount storageAccount)
         {
             _bikeStorage = new BikeStorage(storageAccount);
+            Utility.LogMessage("Started bikes controller successfully.");
         }
 
         [HttpPost("{bikeId}/status")]

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.ApplicationInsights;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ namespace BikeHack
 {
     public class Utility
     {
+        private static TelemetryClient Telemetry = new Microsoft.ApplicationInsights.TelemetryClient();
 
         // Adapted from http://www.geodatasource.com/developers/c-sharp
         public static double MilesBetweenCoordinates(double lat1, double lon1, double lat2, double lon2)
@@ -17,6 +19,11 @@ namespace BikeHack
             dist *= 2*Math.PI;
             dist = dist * 60 * 1.1515;
             return dist;
+        }
+
+        public static void LogMessage(string message)
+        {
+            Telemetry.TrackTrace(message);
         }
 
         private static double ToRadians(double degrees)

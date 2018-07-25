@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
@@ -24,21 +25,29 @@ namespace BikeHack
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            var accountName = Configuration["storage-account-name"];
-            var accountKey = Configuration["storage-account-key"];
-            var credentials = new StorageCredentials(accountName, accountKey);
-            var storageAccount = new CloudStorageAccount(credentials, true);
+            CloudStorageAccount storageAccount = null;
+            var connectionString = Configuration.GetConnectionString("bikehackstorage");
+            if (connectionString == null)
+            {
+                var accountName = Configuration["storage-account-name"];
+                var accountKey = Configuration["storage-account-key"];
+                var credentials = new StorageCredentials(accountName, accountKey);
+                storageAccount = new CloudStorageAccount(credentials, true);
+            }
+            else
+            {
+                storageAccount = CloudStorageAccount.Parse(connectionString);
+            }
             services.AddSingleton(storageAccount);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UseDeveloperExceptionPage();
-
             if (env.IsDevelopment())
             {
                 app.UseBrowserLink();
+                app.UseDeveloperExceptionPage();
             }
             else
             {
