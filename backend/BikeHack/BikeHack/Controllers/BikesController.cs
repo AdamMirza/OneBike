@@ -56,7 +56,7 @@ namespace BikeHack.Controllers
         public async Task<IActionResult> GetStatus([FromRoute] Guid bikeId)
         {
             var bike = await _bikeStorage.RetrieveBikeAsync(bikeId);
-            return Ok(bike.GetStatus());
+            return Ok(bike);
         }
     }
 }
