@@ -1,30 +1,41 @@
 import requests
+import os
+
+ENV_BIKE_ID_KEY = 'BIKE_ID'
+#baseUrl = 'http://bike-hack.azurewebsites.net/'
+BASE_URL = 'http://localhost:55652/'
 
 # Helper methods.
-def getLatitude():
+def get_latitude():
     return '47.6740'
 
-def getLongitude():
+def get_longitude():
     return '122.1215'
 
-def getBatteryPercentage():
+def get_battery_percentage():
     return '98'
     
-def getBikeState():
+def get_bike_state():
     return 'Idle'
 
-def getBikeStatusJson():
-    return '{"latitude": ' + getLatitude() + ', "longitude": ' + getLongitude() + ', "batteryPercentage": ' + getBatteryPercentage() + ', "state": "' + getBikeState() + '"}'
+def get_bike_status_json():
+    return {'latitude': get_latitude(), 'longitude': get_longitude(), 'batteryPercentage': get_battery_percentage(), 'state': get_bike_state()}
 
-def createBike():
-    url = baseUrl + 'bikes'
-    body = getBikeStatusJson()
-    print(body)
+def get_user_id():
+    return 'satyan@microsoft.com'
+
+def create_bike():
+    url = BASE_URL + 'bikes'
+    body = get_bike_status_json()
     response = requests.post(url, json=body)
-    print(response.status_code)
-    #print(response.text)
+    return response.json()['bikeId']
+
+def get_bike_id():
+    if not os.environ.has_key(ENV_BIKE_ID_KEY):
+        os.environ[ENV_BIKE_ID_KEY] = create_bike()
+    return os.environ[ENV_BIKE_ID_KEY]
 
 
 # Main.
-baseUrl = "http://bike-hack.azurewebsites.net/"
-createBike()
+bike_id = get_bike_id()
+print('retrieved bike id ' + bike_id)
