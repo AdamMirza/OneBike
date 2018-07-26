@@ -24,6 +24,10 @@ namespace BikeHack.Controllers
         public async Task<IActionResult> CreateBike([FromBody] Bike bike)
         {
             Utility.LogMessage("CreateBike request.");
+            if (!bike.State.HasValue)
+            {
+                return BadRequest(new { message = "Please provide a bike state of Idle or Active" });
+            }
             bike.BikeId = Guid.NewGuid();
             bike.DeploymentTime = DateTimeOffset.UtcNow;
             await _bikeStorage.InsertBikeAsync(bike);

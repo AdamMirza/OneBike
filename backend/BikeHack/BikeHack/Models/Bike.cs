@@ -52,7 +52,7 @@ namespace BikeHack.Models
 
             set
             {
-                State = Enum.Parse<BikeState>(value, true);
+                State = string.IsNullOrEmpty(value) ? null : (BikeState?)Enum.Parse<BikeState>(value, true);
             }
         }
 
