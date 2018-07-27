@@ -18,45 +18,29 @@ namespace BikeHack.Models
             PartitionKey = Guid.Empty.ToString();
         }
 
-        public Bike(BikeStatus status, Guid bikeId) : this()
-        {
-            UpdateStatus(status);
-            BikeId = bikeId;
-        }
-
-        public BikeStatus GetStatus()
-        {
-            return new BikeStatus
-            {
-                Latitude = Latitude,
-                Longitude = Longitude,
-                BatteryPercentage = BatteryPercentage
-            };
-        }
-
-        public void UpdateStatus(BikeStatus status)
-        {
-            Latitude = status.Latitude;
-            Longitude = status.Longitude;
-            BatteryPercentage = status.BatteryPercentage;
-        }
-
         public double Latitude { get; set; }
 
         public double Longitude { get; set; }
 
         public int BatteryPercentage { get; set; }
 
-        public BikeState State { get; set; }
+        public BikeState? State { get; set; }
 
         [IgnoreProperty]
-        public Guid BikeId
+        public Guid? BikeId
         {
-            get => Guid.Parse(RowKey);
+            get => RowKey != null ? new Guid?(Guid.Parse(RowKey)) : null;
             set
             {
                 RowKey = value.ToString();
             }
+        }
+
+        public void UpdateLocation(double latitude, double longitude)
+        {
+            MilesTraveled += Utility.MilesBetweenCoordinates(Latitude, Longitude, latitude, longitude);
+            Latitude = latitude;
+            Longitude = longitude;
         }
 
         public string BikeState
@@ -68,7 +52,7 @@ namespace BikeHack.Models
 
             set
             {
-                State = Enum.Parse<BikeState>(value);
+                State = string.IsNullOrEmpty(value) ? null : (BikeState?)Enum.Parse<BikeState>(value, true);
             }
         }
 
@@ -78,6 +62,6 @@ namespace BikeHack.Models
 
         public double MilesTraveled { get; set; }
 
-        public DateTimeOffset DeploymentTime { get; set; }
+        public DateTimeOffset? DeploymentTime { get; set; }
     }
 }

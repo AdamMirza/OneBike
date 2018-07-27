@@ -2091,9 +2091,9 @@ input, select, textarea {
 			width: 100%;
 		}
 
-			.image.main img {
-				width: 100%;
-			}
+		.image.main img {
+			width: 100%;
+		}
 
         .image.satya {
             border-radius: 50%;
@@ -3330,6 +3330,10 @@ input, select, textarea {
 			margin-right:5px;
 			margin-top:5px;
 		}
+
+        img.profile.satya{
+            border-radius: 50%;
+        }
 
 		@media screen and (max-width: 736px) {
 

@@ -10,34 +10,42 @@ namespace BikeHack.Models
     {
         public Trip()
         {
+            PartitionKey = Guid.Empty.ToString();
         }
 
-        DateTimeOffset StartTime { get; set; }
+        public DateTimeOffset? StartTime { get; set; }
 
-        DateTimeOffset? EndTime { get; set; }
+        public DateTimeOffset? EndTime { get; set; }
 
         [IgnoreProperty]
-        public Guid TripId
+        public Guid? TripId
         {
-            get => Guid.Parse(RowKey);
+            get => RowKey != null ? new Guid?(Guid.Parse(RowKey)) : null;
             set
             {
                 RowKey = value.ToString();
             }
         }
 
-        public double StartLongitude { get; set; }
+        public void UpdateLocation(double latitude, double longitude)
+        {
+            TripMiles += Utility.MilesBetweenCoordinates(EndLatitude.Value, EndLongitude.Value, latitude, longitude);
+            EndLatitude = latitude;
+            EndLongitude = longitude;
+        }
 
-        public double StartLatitude { get; set; }
+        public double? StartLongitude { get; set; }
 
-        public double EndLongitude { get; set; }
+        public double? StartLatitude { get; set; }
 
-        public double EndLatitude { get; set; }
+        public double? EndLongitude { get; set; }
 
-        public Guid BikeId { get; set; }
+        public double? EndLatitude { get; set; }
 
-        public Guid UserId { get; set; }
+        public string BikeId { get; set; }
 
-        public double TripMiles { get; set; }
+        public string UserId { get; set; }
+
+        public double? TripMiles { get; set; }
     }
 }

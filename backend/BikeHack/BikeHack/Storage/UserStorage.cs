@@ -6,33 +6,33 @@ using System.Threading.Tasks;
 
 namespace BikeHack
 {
-    public class TripStorage
+    public class UserStorage
     {
-        private const string TableName = "trips";
+        private const string TableName = "users";
         private CloudTable _table;
 
-        public TripStorage(CloudStorageAccount account)
+        public UserStorage(CloudStorageAccount account)
         {
             var client = account.CreateCloudTableClient();
             _table = client.GetTableReference(TableName);
         }
 
-        public async Task InsertTripAsync(Trip trip)
+        public async Task InsertUserAsync(User user)
         {
-            var operation = TableOperation.Insert(trip);
+            var operation = TableOperation.Insert(user);
             await _table.ExecuteAsync(operation);
         }
 
-        public async Task<Trip> RetrieveTripAsync(Guid tripId)
+        public async Task<User> RetrieveUserAsync(string userId)
         {
-            var retrieveOperation = TableOperation.Retrieve<Trip>(Guid.Empty.ToString(), tripId.ToString());
+            var retrieveOperation = TableOperation.Retrieve<User>(Guid.Empty.ToString(), userId);
             var result = await _table.ExecuteAsync(retrieveOperation);
-            return result.Result as Trip;
+            return result.Result as User;
         }
 
-        public async Task UpdateTripAsync(Trip trip)
+        public async Task UpdateUserAsync(User user)
         {
-            var operation = TableOperation.Replace(trip);
+            var operation = TableOperation.Replace(user);
             await _table.ExecuteAsync(operation);
         }
     }
