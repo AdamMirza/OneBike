@@ -1,17 +1,12 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <a class="navbar-brand" href="">MS OneBike</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+<nav class="navbar navbar-dark">
+  <span style="font-size:30px;cursor:pointer" onclick="openNav()"><span _ngcontent-c2="" class="navbar-toggler-icon" style="font-size:16pt"></span></span>
+  <a class="navbar-brand" href="/app">MS OneBike</a>
+  <div class="navbar-expand" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li routerLinkActive="active current" class="nav-item">
-        <a class="nav-link" routerLink="/app">Home</a>
-      </li>
-      <li routerLinkActive="active current" class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>
+      <li class="nav-item"><a href="/app"><i class="fas fa-home nav-link"></i></a></li>
+      <li class="nav-item"><a href="https://garagehackbox.azurewebsites.net/hackathons/1214/projects/70779"><i class="fas fa-question nav-link"></i></a></li>
+      <!--<li class="nav-item"><img src="{{userImageUrl}}" class="nav-link"/></li>-->
+      <li class="nav-item"><button class="btn btn-warning" (click)="redirect()">Hardware Demo</button></li>
     </ul>
   </div>
   <div *ngIf="rus.currentUser!=null" class="navbar-collapse collapse w-100 order-3 dual-collapse2">
@@ -22,3 +17,4 @@
       </ul>
   </div>
 </nav>
+<sidebar></sidebar>

@@ -20,7 +20,12 @@
         <form>
             <div class="form-group">
                 <label for="email">Register your email</label>
-                <input required pattern="^\S+@microsoft.com$" ngModel name="email" #email="ngModel" (change)="log(email)" id="email" type="text" class="form-control" />
+                <input required pattern="^\S+@microsoft.com$" ngModel name="email" #email="ngModel" id="email" type="text" class="form-control" />
+                <div *ngIf="email.errors && email.touched && email.errors.pattern" class="alert alert-danger">Email is not from a valid organization.</div>
+            </div>
+            <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input required ngModel name="firstName" #email="ngModel" id="firstName" type="text" class="form-control" />
                 <div *ngIf="email.errors && email.touched && email.errors.pattern" class="alert alert-danger">Email is not from a valid organization.</div>
             </div>
             <!--<div class="form-group">

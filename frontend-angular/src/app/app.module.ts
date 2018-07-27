@@ -1,3 +1,4 @@
+import { HttpService } from './http.service';
 import { RegisteredUsersService } from './registered-users.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -5,6 +6,7 @@ import { AgmCoreModule } from '@agm/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { Component, OnInit } from '@angular/core';
@@ -18,6 +20,11 @@ import { RegisterComponent } from './register/register.component';
 import { RegisterNavbarComponent } from './register-navbar/register-navbar.component';
 import { TextAreaComponent } from './text-area/text-area.component';
 import { CongratsComponent } from './congrats/congrats.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { BikerSidebarStatComponent } from './biker-sidebar-stat/biker-sidebar-stat.component';
+import { BikerClockStatComponent } from './biker-clock-stat/biker-clock-stat.component';
+import { MyStatsComponent } from './my-stats/my-stats.component';
+import { DemoComponent } from './demo/demo.component';
 
 
 @NgModule({
@@ -32,7 +39,12 @@ import { CongratsComponent } from './congrats/congrats.component';
     RegisterComponent,
     RegisterNavbarComponent,
     TextAreaComponent,
-    CongratsComponent
+    CongratsComponent,
+    SidebarComponent,
+    BikerSidebarStatComponent,
+    BikerClockStatComponent,
+    MyStatsComponent,
+    DemoComponent
   ],
   imports: [
     BrowserModule,
@@ -41,15 +53,17 @@ import { CongratsComponent } from './congrats/congrats.component';
     }),
     FormsModule,
     HttpModule,
+    HttpClientModule,
     RouterModule.forRoot([
       { path: '',         component: HomeComponent},
       { path: 'register', component: RegisterComponent},
       { path: 'app',      component: AppHomeComponent},
       { path: 'congrats', component: CongratsComponent},
-      { path: '**',       component: NotFoundComponent }
+      { path: 'demo',     component: DemoComponent},
+      { path: '**',       component: NotFoundComponent}
     ])
   ],
-  providers: [RegisteredUsersService],
+  providers: [RegisteredUsersService, HttpService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
