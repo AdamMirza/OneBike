@@ -33,6 +33,5 @@ ng serve
 The server will run on localhost port 4200.
 
 ### Emails that work
-Only emails with `@microsoft.com` endings will work on the angular frontend login. The two emails that are hardcoded to be users are:
+Only emails with `@microsoft.com` endings will work on the angular frontend login. The email that is hardcoded to be a user is:
 * hello@microsoft.com
-* satyan@microsoft.com
