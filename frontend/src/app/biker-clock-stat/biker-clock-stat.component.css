@@ -1,0 +1,8 @@
+#clock-stat {
+  font-size: 20pt;
+}
+#clock-stat-letters {
+  font-size: 10pt;
+  font-family: 'Segoe UI';
+  overflow-wrap: break-word;
+}

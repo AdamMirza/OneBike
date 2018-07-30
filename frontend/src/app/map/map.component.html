@@ -1,0 +1,17 @@
+<div class="container-fluid" fxLayout="column">
+  <div class="row">
+    <div class="map" fxFlex="1 1 100%" #map>
+      <agm-map  [style.height.px]="map.offsetHeight"
+                [latitude]="latitude"
+                [longitude]="longitude"
+                [zoom]="6"
+                (mapClick)="onChoseLocation($event)">
+        <agm-marker *ngFor="let bike of bikeList"
+                    [latitude]="bike.latitude"
+                    [longitude]="bike.longitude"
+                    [label]="labelOptions">
+        </agm-marker>
+      </agm-map>
+    </div>
+  </div>
+</div>

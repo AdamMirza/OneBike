@@ -1,0 +1,91 @@
+<register-navbar></register-navbar>
+<!--======== Email Block ===========-->
+<div class="container" *ngIf="emailBlock">
+    <div class="row">
+      <div class="col-12"><p>Registering <span class="text-primary">{{email | lowercase}}</span></p></div>
+    </div>
+</div>
+<!--================================-->
+
+<!--======== Home Block ===========-->
+<div class="container register" *ngIf="homeBlock">
+  <div class="row">
+    <div class="col-12" style="text-align:center;">
+      <i class="fas fa-bicycle"></i>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4 col-lg-4"></div>
+    <div class="col-md-4 col-lg-4">
+        <form>
+            <div class="form-group">
+                <label for="email">Register your email</label>
+                <input required pattern="^\S+@microsoft.com$" ngModel name="email" #email="ngModel" id="email" type="text" class="form-control" />
+                <div *ngIf="email.errors && email.touched && email.errors.pattern" class="alert alert-danger">Email is not from a valid organization.</div>
+            </div>
+            <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input required ngModel name="firstName" #email="ngModel" id="firstName" type="text" class="form-control" />
+                <div *ngIf="email.errors && email.touched && email.errors.pattern" class="alert alert-danger">Email is not from a valid organization.</div>
+            </div>
+            <!--<div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" id="password" class="form-control">
+            </div>-->
+            <button *ngIf="!email.valid" class="btn btn-success" disabled>Register</button>
+            <!--<button *ngIf="email.errors && email.touched && email.errors.pattern" class="btn btn-primary" disabled>Submit</button>-->          
+            <button *ngIf="email.valid" class="btn btn-success" (click)="process(email)">Register</button>
+          </form>
+    </div>
+    <div class="col-md-4 col-lg-4"></div>    
+  </div>
+</div>
+<!--================================-->
+
+<!--========= First Block ==========-->
+<div class="container-fluid register" *ngIf="contentBlock">
+  <div class="row">
+    <div class="col-12" style="text-align:center;">
+      <i *ngIf="iconOne" class="fas fa-car"></i>  
+      <i *ngIf="iconTwo" class="fas fa-shield-alt"></i>
+      <i *ngIf="iconThree" class="fas fa-walking"></i>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-2"></div>
+    <div class="col-8">
+      <h3>{{h3}}</h3>
+    </div>
+    <div class="col-2"></div>
+  </div>
+  <div class="row">
+    <div class="col-2"></div>
+    <div class="col-8">
+      <h4>{{h4}}</h4>
+    </div>
+    <div class="col-2"></div>
+  </div>
+  <text-area></text-area>
+  <div class="row" style="margin-top: 10px;">
+    <div class="col-3"></div>
+    <div class="col-6" style="text-align: right;">
+      <button class="btn btn-primary" *ngIf="iconOne" (click)="secondBlock()">I Agree</button>
+      <button class="btn btn-primary" *ngIf="iconTwo" (click)="thirdBlock()">I Agree</button>
+      <button class="btn btn-primary" *ngIf="iconThree" (click)="finish()">I Agree & Complete My Registration</button>
+    </div>
+    <div class="col-3"></div>
+  </div>
+</div>
+<!--================================-->
+
+<!--======== Second Block ==========-->
+<div class="container" *ngIf="blockTwo">
+
+</div>
+<!--================================-->
+
+<!--========= Third Block ==========-->
+<div class="container" *ngIf="blockThree">
+
+</div>
+<!--================================-->

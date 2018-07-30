@@ -1,0 +1,10 @@
+.stats-bin {
+  padding: 8px 8px 8px 0px;
+  color: #000;
+  display: block;
+  text-align: center;
+}
+
+.clickable:hover {
+  cursor: pointer;
+}
